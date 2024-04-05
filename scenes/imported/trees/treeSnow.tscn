@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://clnxxpx8da0x7"]
+[gd_scene load_steps=6 format=3 uid="uid://cjrsktldsjjo0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6jw5n"]
 resource_name = "dirt"
@@ -66,7 +66,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_uc5v8")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_e3diy"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mht57"]
 points = PackedVector3Array(0.356656, 1.91234, 0.327206, -0.581905, 0.847358, -0.366111, -0.581905, 0.847358, 0.373178, 0.126672, -0.0154048, -0.119605, 0.403891, 0.87824, -0.581905, -0.346481, 1.90404, -0.346481, 0.496374, 0.847358, 0.527202, -0.317089, 1.84501, 0.411557, 0.411557, 1.84501, -0.317089, -0.119605, -0.0154048, 0.126672, 0.588857, 0.847358, -0.366111, -0.366111, 0.847358, 0.588857, -0.396824, 0.87824, -0.581905, 0.588857, 0.847358, 0.373178, 0.373178, 0.847358, 0.588857, -0.409984, 1.85677, 0.328463, 0.328463, 1.85677, -0.409984, -0.119605, -0.0154048, -0.119605, 0.126672, -0.0154048, 0.126672, 0.32415, 1.84501, 0.411557, 0.411557, 1.84501, 0.32415, -0.400142, 1.83567, -0.342529, -0.351308, 1.91691, 0.328777, 0.328777, 1.91691, -0.351308, -0.489422, 0.847358, 0.527202, -0.342529, 1.83567, -0.400142, 0.527202, 0.847358, -0.489422, -0.520135, 0.847358, -0.489422, 0.373178, 0.847358, -0.581905, -0.366111, 0.847358, -0.581905, -0.581905, 0.87824, -0.396824, -0.581905, 0.87824, 0.403891)
 
 [node name="treeSnow" type="Node3D"]
@@ -79,4 +79,4 @@ skeleton = NodePath("")
 [node name="treeSnow_col" type="StaticBody3D" parent="treeSnow"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="treeSnow/treeSnow_col"]
-shape = SubResource("ConvexPolygonShape3D_e3diy")
+shape = SubResource("ConvexPolygonShape3D_mht57")

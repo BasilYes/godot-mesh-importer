@@ -28,9 +28,10 @@ extends Node3D
 			counter.get_meta("mesh").collision_type = collision_type
 
 
-@export_storage var source_file: String = ""
-@export_storage var save_scene_dir: String = ""
-@export_storage var save_meshes_dir: String = ""
+@export var source_file: String = ""
+@export var save_scene_dir: String = ""
+@export var save_meshes_dir: String = ""
+@export var save_materials_dir: String = ""
 
 
 static func execute_on_all_children(callable: Callable, node: Node) -> void:
@@ -44,6 +45,8 @@ func init(file_name: String, parent: TDAssetsImporter) -> void:
 		name = file_name.get_basename()
 		source_file = parent.sources_dir.path_join(file_name)
 		save_scene_dir = parent.save_scenes_dir
+		save_meshes_dir = parent.save_meshes_dir
+		save_materials_dir = parent.save_materials_dir
 		collision_type = parent.collision_type
 		execute_on_all_children(func(node:Node) -> void:
 			if node is MeshInstance3D:
@@ -77,3 +80,21 @@ func save_scene() -> void:
 	packed_scene.pack(node)
 	node.queue_free()
 	ResourceSaver.save(packed_scene, save_scene_dir + "/" + node.name + ".tscn")
+
+
+func save_materials() -> void:
+	if not DirAccess.dir_exists_absolute(save_materials_dir):
+		return
+	execute_on_all_children(func(node:Node) -> void:
+				if node is MeshInstance3D:
+					var counter: int = 0
+					while node.mesh.get("surface_" + str(counter) + "/material"):
+						var material: Material = node.mesh.get("surface_" + str(counter) + "/material")
+						counter += 1
+						if not material:
+							continue
+						var save_name: String = material.resource_name
+						var save_path: String = save_materials_dir + "/" + save_name + ".res"
+						ResourceSaver.save(material, save_path)
+						material.resource_path = save_path
+				, self)

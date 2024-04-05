@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtis366s8k4xt"]
+[gd_scene load_steps=6 format=3 uid="uid://br28bbqxmjnoo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4hfpa"]
 resource_name = "snow"
@@ -64,7 +64,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_mr2nc")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dt3gk"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0mni6"]
 points = PackedVector3Array(0.0802321, 1.27301, 0.0211166, -0.344139, 0.356556, -0.0188626, -0.343844, 0.356833, 0.021712, 0.326013, 0.316639, -0.0593368, 0.062045, 0.378314, 0.345438, -0.0795533, 0.377924, -0.343013, -0.150057, -0.0108222, 0.152923, -0.176498, 0.741007, 0.25846, -0.0765077, 1.26657, -0.0375047, 0.158142, 0.740477, -0.272855, 0.152923, -0.0108222, -0.150057, 0.302817, 0.380459, 0.18225, -0.150057, -0.0108222, -0.150057, 0.152923, -0.0108222, 0.152923, -0.155844, 0.74069, -0.273851, 0.298834, 0.761046, -0.0579544, 0.178445, 0.740701, 0.257132, -0.295517, 0.780645, -0.0183326, 0.183176, 0.378917, -0.301493, -0.180093, 0.379277, 0.303999, -0.302675, 0.377735, -0.181018, -0.0183855, 1.317, 0.0608899, -0.272856, 0.740477, 0.158142, -0.0579535, 0.761045, 0.298829, 0.0401747, 1.30263, -0.0566787, 0.296963, 0.740799, 0.0999214, 0.303999, 0.379277, -0.180093, -0.273851, 0.74069, -0.155844, -0.301493, 0.378917, 0.183176, 0.0211775, 0.780536, -0.29519, 0.182249, 0.380462, 0.302814, 0.258461, 0.741007, -0.176498)
 
 [node name="treePineSmallSnow" type="Node3D"]
@@ -77,4 +77,4 @@ skeleton = NodePath("")
 [node name="treePineSmallSnow_col" type="StaticBody3D" parent="treePineSmallSnow"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="treePineSmallSnow/treePineSmallSnow_col"]
-shape = SubResource("ConvexPolygonShape3D_dt3gk")
+shape = SubResource("ConvexPolygonShape3D_0mni6")

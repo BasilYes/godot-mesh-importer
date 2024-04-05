@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccvjn4ieqjq7i"]
+[gd_scene load_steps=6 format=3 uid="uid://blgrnwgxqls3o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fiy5"]
 resource_name = "grass"
@@ -66,7 +66,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_5wlli")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_asd7j"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_a30sg"]
 points = PackedVector3Array(-0.52211, 0.956776, -0.502843, -0.49265, 0, 0.492648, 0.492634, 0, -0.492648, -0.483277, 0.995402, 0.502654, 0.502649, 0.995411, -0.483283, -0.49265, 0, -0.492648, 0.492634, 0, 0.492648, 0.441988, 0.773566, 0.643048, 0.441988, 0.773566, -0.643048, -0.642922, 0.773566, 0.442001, 0.483335, 0.995478, 0.50261, 0.642906, 0.773667, -0.441875, -0.442003, 0.773566, 0.643048, -0.442003, 0.773566, -0.643048, -0.642922, 0.773566, -0.442001, -0.483277, 0.995402, -0.502654, 0.642906, 0.773667, 0.441875, 0.52243, 0.833952, -0.602763, -0.602763, 0.833852, 0.522445, 0.602747, 0.833952, 0.522319, -0.522446, 0.833852, -0.602763, -0.421861, 0.753404, -0.643048, 0.421845, 0.753404, 0.643048, -0.642922, 0.753404, 0.421984, 0.642906, 0.753505, -0.421858, -0.502655, 0.995401, 0.483274, 0.483335, 0.995478, -0.50261, 0.502649, 0.995411, 0.483283, 0.52243, 0.833952, 0.602763, 0.602747, 0.833952, -0.522319, -0.522446, 0.833852, 0.602763, -0.602763, 0.833852, -0.522445)
 
 [node name="block" type="Node3D"]
@@ -79,4 +79,4 @@ skeleton = NodePath("")
 [node name="block_col" type="StaticBody3D" parent="block"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block/block_col"]
-shape = SubResource("ConvexPolygonShape3D_asd7j")
+shape = SubResource("ConvexPolygonShape3D_a30sg")

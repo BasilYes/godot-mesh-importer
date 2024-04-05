@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://h0mfri4l4jxm"]
+[gd_scene load_steps=6 format=3 uid="uid://bw1ofm18ay22s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bebcv"]
 resource_name = "dirt"
@@ -66,7 +66,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_8djkc")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hl4a4"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gtsc2"]
 points = PackedVector3Array(0.517038, 0.826868, 0.604394, -0.471361, 0.826968, -0.574206, -0.566401, 0.826968, -0.536094, -0.509353, -0.00950551, 0.471361, -0.493528, 1, 0.493413, 0.536094, 0.750898, 0.338209, 0.492943, 0.994656, 0.48858, -0.48847, 0.994537, -0.49293, -0.509353, 0.237698, -0.0227791, -0.642506, 0.788883, 0.452186, -0.452305, 0.76989, 0.642506, -0.338328, 0.76989, -0.55515, 0.0227791, 0.237698, 0.490298, -0.642506, 0.76989, -0.441053, 0.421998, 0.750898, 0.642506, -0.471361, -0.00950551, 0.509234, -0.205176, 0.750797, -0.422117, 0.555031, 0.788883, 0.338209, -0.0720233, 0.845961, -0.250972, -0.62345, 0.826968, 0.490298, -0.414313, 0.237698, 0.0529676, 0.421998, 0.750898, 0.205176, -0.511122, 0.980734, -0.498003, 0.574206, 0.807875, 0.433249, -0.642506, 0.750797, 0.433368, -0.490298, 0.807875, 0.623331, 0.497767, 0.980723, 0.511129, -0.5, 0.000597615, 0.499883, -0.642506, 0.750797, -0.422117, -0.433249, 0.750797, 0.642506, -0.126026, 1, 0.493528, 0.441053, 0.76989, 0.642506)
 
 [node name="blockCliffCorner" type="Node3D"]
@@ -79,4 +79,4 @@ skeleton = NodePath("")
 [node name="blockCliffCorner_col" type="StaticBody3D" parent="blockCliffCorner"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="blockCliffCorner/blockCliffCorner_col"]
-shape = SubResource("ConvexPolygonShape3D_hl4a4")
+shape = SubResource("ConvexPolygonShape3D_gtsc2")

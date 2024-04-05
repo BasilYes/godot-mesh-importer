@@ -1,18 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://gwu1ns2p6chm"]
-
-[ext_resource type="ArrayMesh" uid="uid://cjpd5q3hs46yc" path="res://resources/meshes/simple/blockCliff_Mesh blockCliff.res" id="1_v487k"]
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v6fcu"]
-points = PackedVector3Array(0.502843, 0.956776, 0.522109, -0.442001, 0.773566, -0.643048, -0.485578, 0.00721105, 0.485578, -0.50261, 0.995478, 0.483349, 0.450779, 0.241018, 0.0179634, 0.483275, 0.995402, -0.502654, 0.485578, 0.00721105, 0.485578, 0.643048, 0.773566, -0.442001, -0.442001, 0.773566, 0.643048, -0.50261, 0.995478, -0.483349, -0.643048, 0.753404, -0.421984, -0.643048, 0.773566, 0.442001, 0.421984, 0.753404, -0.643048, 0.643048, 0.773566, 0.442001, 0.421984, 0.753404, 0.643048, -0.450779, 0.241018, 0.0179634, 0.502654, 0.995402, 0.483275, -0.421858, 0.753404, -0.643048, 0.522445, 0.833852, 0.602763, -0.522319, 0.833852, 0.602763, -0.602763, 0.833852, -0.522445, 0.522445, 0.833852, -0.602763, -0.483275, 0.995402, 0.502654, 0.502654, 0.995402, -0.483275, -0.483275, 0.995402, -0.502654, 0.643048, 0.753404, -0.421984, 0.602763, 0.833852, 0.522445, -0.602763, 0.833852, 0.522445, 0.643048, 0.753404, 0.421984, -0.643048, 0.753404, 0.421984, -0.421858, 0.753404, 0.643048, 0.483275, 0.995402, 0.502654)
+[gd_scene format=3 uid="uid://bgjdio2fyq2jb"]
 
 [node name="blockCliff" type="Node3D"]
 metadata/_edit_group_ = true
 
 [node name="blockCliff" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_v487k")
 skeleton = NodePath("")
-
-[node name="blockCliff_col" type="StaticBody3D" parent="blockCliff"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="blockCliff/blockCliff_col"]
-shape = SubResource("ConvexPolygonShape3D_v6fcu")

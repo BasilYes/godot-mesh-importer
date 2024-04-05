@@ -8,10 +8,6 @@ extends Node3D
 		global_transform = Transform3D.IDENTITY
 		if not DirAccess.dir_exists_absolute(sources_dir):
 			return
-		if sources_root_dir == ""\
-				or not sources_root_dir.begins_with("res://")\
-				or not sources_dir.contains(sources_root_dir):
-			sources_root_dir = sources_dir
 		_update_owned_dirs()
 		_update_owned_models()
 		_update_children_transform()
@@ -28,22 +24,19 @@ extends Node3D
 		save = false
 		var save_scenes: = false
 		var save_meshes: = false
+		var save_materials: = false
 		if save_scenes_dir.begins_with("res://"):
 			if not DirAccess.dir_exists_absolute(save_scenes_dir):
 				DirAccess.make_dir_recursive_absolute(save_scenes_dir)
-			if save_scenes_root_dir == ""\
-					or not save_scenes_root_dir.begins_with("res://")\
-					or not save_scenes_dir.contains(save_scenes_root_dir):
-				save_scenes_root_dir = save_scenes_dir
 			save_scenes = true
 		if save_meshes_dir.begins_with("res://"):
 			if not DirAccess.dir_exists_absolute(save_meshes_dir):
 				DirAccess.make_dir_recursive_absolute(save_meshes_dir)
-			if save_meshes_root_dir == ""\
-					or not save_meshes_root_dir.begins_with("res://")\
-					or not save_meshes_dir.contains(save_meshes_root_dir):
-				save_meshes_root_dir = save_meshes_dir
 			save_meshes = true
+		if save_materials_dir.begins_with("res://"):
+			if not DirAccess.dir_exists_absolute(save_materials_dir):
+				DirAccess.make_dir_recursive_absolute(save_materials_dir)
+			save_materials = true
 		
 		for child in get_children():
 			if child is TDAssetsImporter:
@@ -53,30 +46,100 @@ extends Node3D
 					child.save_scene()
 				if save_meshes:
 					child.save_meshes()
-
+				if save_materials:
+					child.save_materials()
 
 @export_dir var sources_dir: String = ""
-@export_storage var sources_root_dir: String = ""
 
+@export var create_scenes_subdir: bool = true :
+	set(value):
+		if value == create_scenes_subdir:
+			return
+		create_scenes_subdir = value
+		var parent: Node = get_parent()
+		if parent is TDAssetsImporter:
+			if create_scenes_subdir:
+				save_scenes_dir = parent.save_scenes_dir.path_join(name)
+			else:
+				save_scenes_dir = save_scenes_dir
+@export var update_create_scenes_subdir_recursive: bool = false :
+	set(value):
+		update_create_scenes_subdir_recursive = false
+		for child in get_children():
+			if child is TDAssetsImporter:
+				child.create_scenes_subdir = create_scenes_subdir
+				child.update_create_scenes_subdir_recursive = false
 @export_dir var save_scenes_dir: String = "" :
 	set(value):
 		save_scenes_dir = value
 		for child in get_children():
 			if child is TDAssetsImporter:
-				child.save_scenes_dir = save_scenes_dir.path_join(child.name)
+				if child.create_scenes_subdir:
+					child.save_scenes_dir = save_scenes_dir.path_join(child.name)
+				else:
+					child.save_scenes_dir = save_scenes_dir
 			elif child is TDImportedAsset:
 				child.save_scene_dir = save_scenes_dir
-@export_storage var save_scenes_root_dir: String = ""
 
+@export var create_meshes_subdir: bool = true :
+	set(value):
+		if value == create_meshes_subdir:
+			return
+		create_meshes_subdir = value
+		var parent: Node = get_parent()
+		if parent is TDAssetsImporter:
+			if create_meshes_subdir:
+				save_meshes_dir = parent.save_meshes_dir.path_join(name)
+			else:
+				save_meshes_dir = save_meshes_dir
+@export var update_create_meshes_subdir_recursive: bool = false :
+	set(value):
+		update_create_meshes_subdir_recursive = false
+		for child in get_children():
+			if child is TDAssetsImporter:
+				child.create_meshes_subdir = create_meshes_subdir
+				child.update_create_meshes_subdir_recursive = false
 @export_dir var save_meshes_dir: String = "" :
 	set(value):
 		save_meshes_dir = value
 		for child in get_children():
 			if child is TDAssetsImporter:
-				child.save_meshes_dir = save_meshes_dir.path_join(child.name)
+				if child.create_meshes_subdir:
+					child.save_meshes_dir = save_meshes_dir.path_join(child.name)
+				else:
+					child.save_meshes_dir = save_meshes_dir
 			elif child is TDImportedAsset:
 				child.save_meshes_dir = save_meshes_dir
-@export_storage var save_meshes_root_dir: String = ""
+
+@export var create_materials_subdir: bool = true :
+	set(value):
+		if value == create_materials_subdir:
+			return
+		create_materials_subdir = value
+		var parent: Node = get_parent()
+		if parent is TDAssetsImporter:
+			if create_materials_subdir:
+				save_materials_dir = parent.save_materials_dir.path_join(name)
+			else:
+				save_materials_dir = save_materials_dir
+@export var update_create_materials_subdir_recursive: bool = false :
+	set(value):
+		update_create_materials_subdir_recursive = false
+		for child in get_children():
+			if child is TDAssetsImporter:
+				child.create_materials_subdir = create_materials_subdir
+				child.update_create_materials_subdir_recursive = false
+@export_dir var save_materials_dir: String = "" :
+	set(value):
+		save_materials_dir = value
+		for child in get_children():
+			if child is TDAssetsImporter:
+				if child.create_materials_subdir:
+					child.save_materials_dir = save_materials_dir.path_join(child.name)
+				else:
+					child.save_materials_dir = save_materials_dir
+			elif child is TDImportedAsset:
+				child.save_materials_dir = save_materials_dir
 
 @export var collision_type: TDImportedMesh.CollisionType = TDImportedMesh.CollisionType.CONVEX_SIMPLE 
 
@@ -96,12 +159,27 @@ static func make_local(node: Node, owner: Node) -> void:
 func _init(directory: String = "", parent: TDAssetsImporter = null) -> void:
 	if parent:
 		name = directory
+		
 		sources_dir = parent.sources_dir.path_join(directory)
-		sources_root_dir = parent.sources_root_dir
-		save_scenes_dir = parent.save_scenes_dir.path_join(directory)
-		save_scenes_root_dir = parent.save_scenes_root_dir
-		save_meshes_dir = parent.save_meshes_dir.path_join(directory)
-		save_meshes_root_dir = parent.save_meshes_root_dir
+		
+		create_scenes_subdir = parent.create_scenes_subdir
+		if create_scenes_subdir:
+			save_scenes_dir = parent.save_scenes_dir.path_join(directory)
+		else:
+			save_scenes_dir = parent.save_scenes_dir
+		
+		create_meshes_subdir = parent.create_meshes_subdir
+		if create_meshes_subdir:
+			save_meshes_dir = parent.save_meshes_dir.path_join(directory)
+		else:
+			save_meshes_dir = parent.save_meshes_dir
+		
+		create_materials_subdir = parent.create_materials_subdir
+		if create_materials_subdir:
+			save_materials_dir = parent.save_materials_dir.path_join(directory)
+		else:
+			save_materials_dir = parent.save_materials_dir
+		
 		min_grid_size = parent.min_grid_size
 		collision_type = parent.collision_type
 
