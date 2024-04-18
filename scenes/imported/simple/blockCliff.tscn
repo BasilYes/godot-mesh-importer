@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://bgjdio2fyq2jb"]
-
-[node name="blockCliff" type="Node3D"]
-metadata/_edit_group_ = true
-
-[node name="blockCliff" type="MeshInstance3D" parent="."]
-skeleton = NodePath("")
