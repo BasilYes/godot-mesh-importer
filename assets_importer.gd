@@ -2,6 +2,7 @@
 class_name TDAssetsImporter
 extends Node3D
 
+
 @export var reload: bool = false :
 	set(value):
 		reload = false
@@ -145,6 +146,8 @@ extends Node3D
 
 @export var min_grid_size: float = 2.0
 
+@export var scenes_type: Array[String] = ["glb", "gltf", "fbx"]
+
 @export_storage var grid_size: float = 2.0
 @export_storage var size: float = 2.0
 
@@ -202,7 +205,7 @@ func _update_owned_dirs() -> void:
 
 func _update_owned_models() -> void:
 	for i in DirAccess.get_files_at(sources_dir):
-		if i.get_extension() in ["glb"]:
+		if i.get_extension() in scenes_type:
 			if not get_node_or_null(i.get_basename()):
 				var model: Node3D = load(sources_dir.path_join(i)).instantiate()
 				add_child(model)
