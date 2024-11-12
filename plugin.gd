@@ -6,7 +6,7 @@ func _enter_tree():
 	add_custom_type(
 			"AssetImporter",
 			"Node3D",
-			preload("res://addons/3d_assets_importer/assets_importer.gd"),
+			preload("assets_importer.gd"),
 			null)
 
 
