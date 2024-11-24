@@ -26,6 +26,7 @@ extends Node3D
 		var save_scenes: = false
 		var save_meshes: = false
 		var save_materials: = false
+		var save_shapes: = false
 		if save_scenes_dir.begins_with("res://"):
 			if not DirAccess.dir_exists_absolute(save_scenes_dir):
 				DirAccess.make_dir_recursive_absolute(save_scenes_dir)
@@ -38,6 +39,10 @@ extends Node3D
 			if not DirAccess.dir_exists_absolute(save_materials_dir):
 				DirAccess.make_dir_recursive_absolute(save_materials_dir)
 			save_materials = true
+		if save_shapes_dir.begins_with("res://"):
+			if not DirAccess.dir_exists_absolute(save_shapes_dir):
+				DirAccess.make_dir_recursive_absolute(save_shapes_dir)
+			save_shapes = true
 		
 		for child in get_children():
 			if child is TDAssetsImporter:
@@ -49,6 +54,8 @@ extends Node3D
 					child.save_meshes()
 				if save_materials:
 					child.save_materials()
+				if save_shapes:
+					child.save_shapes()
 
 @export_dir var sources_dir: String = ""
 
@@ -142,6 +149,37 @@ extends Node3D
 			elif child is TDImportedAsset:
 				child.save_materials_dir = save_materials_dir
 
+
+@export var create_shapes_subdir: bool = true :
+	set(value):
+		if value == create_shapes_subdir:
+			return
+		create_shapes_subdir = value
+		var parent: Node = get_parent()
+		if parent is TDAssetsImporter:
+			if create_shapes_subdir:
+				save_shapes_dir = parent.save_shapes_dir.path_join(name)
+			else:
+				save_shapes_dir = save_shapes_dir
+@export var update_create_shapes_subdir_recursive: bool = false :
+	set(value):
+		update_create_shapes_subdir_recursive = false
+		for child in get_children():
+			if child is TDAssetsImporter:
+				child.create_shapes_subdir = create_shapes_subdir
+				child.update_create_shapes_subdir_recursive = false
+@export_dir var save_shapes_dir: String = "" :
+	set(value):
+		save_shapes_dir = value
+		for child in get_children():
+			if child is TDAssetsImporter:
+				if child.create_shapes_subdir:
+					child.save_shapes_dir = save_shapes_dir.path_join(child.name)
+				else:
+					child.save_shapes_dir = save_shapes_dir
+			elif child is TDImportedAsset:
+				child.save_shapes_dir = save_shapes_dir
+
 @export var collision_type: TDImportedMesh.CollisionType = TDImportedMesh.CollisionType.CONVEX_SIMPLE 
 
 @export var min_grid_size: float = 2.0
@@ -183,6 +221,12 @@ func _init(directory: String = "", parent: TDAssetsImporter = null) -> void:
 		else:
 			save_materials_dir = parent.save_materials_dir
 		
+		create_shapes_subdir = parent.create_shapes_subdir
+		if create_shapes_subdir:
+			save_shapes_dir = parent.save_shapes_dir.path_join(directory)
+		else:
+			save_shapes_dir = parent.save_shapes_dir
+			
 		min_grid_size = parent.min_grid_size
 		collision_type = parent.collision_type
 

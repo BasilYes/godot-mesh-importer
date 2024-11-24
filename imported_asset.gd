@@ -32,6 +32,7 @@ extends Node3D
 @export var save_scene_dir: String = ""
 @export var save_meshes_dir: String = ""
 @export var save_materials_dir: String = ""
+@export var save_shapes_dir: String = ""
 
 
 static func execute_on_all_children(callable: Callable, node: Node) -> void:
@@ -97,4 +98,16 @@ func save_materials() -> void:
 						var save_path: String = save_materials_dir + "/" + save_name + ".res"
 						ResourceSaver.save(material, save_path)
 						material.resource_path = save_path
+				, self)
+
+
+func save_shapes() -> void:
+	if not DirAccess.dir_exists_absolute(save_shapes_dir):
+		return
+	execute_on_all_children(func(node:Node) -> void:
+				if node is CollisionShape3D:
+					var save_name: String = node.get_parent().name.to_snake_case() + "_" + str(node.get_parent().get_children().find(node) + 1)
+					var save_path: String = save_shapes_dir + "/" + save_name + ".res"
+					ResourceSaver.save(node.shape, save_path)
+					node.shape.resource_path = save_path
 				, self)
