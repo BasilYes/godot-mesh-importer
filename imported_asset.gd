@@ -48,6 +48,7 @@ func init(file_name: String, parent: TDAssetsImporter) -> void:
 		save_scene_dir = parent.save_scenes_dir
 		save_meshes_dir = parent.save_meshes_dir
 		save_materials_dir = parent.save_materials_dir
+		save_shapes_dir = parent.save_shapes_dir
 		collision_type = parent.collision_type
 		execute_on_all_children(func(node:Node) -> void:
 			if node is MeshInstance3D:
